@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe Ship do 
-  let(:subject) { Ship.new(1) }
+  let(:subject) { Ship.new(1,:d) }
   it "can read the size of the ships" do
     expect(subject).to respond_to(:size)
   end
@@ -35,26 +35,46 @@ describe Ship do
     end
     context "the different sections should be part of the ship_section class" do 
       let(:section) { double :section }
-      it "Destroyers" do
+      it "Destroyer has 1" do
         allow(Ship_Section).to receive(:new) { section }
         expect(Ship.destroyer.ship).to match_array(Array.new(Ship::DESTROYER_SIZE) { section })
       end
-      it "Cruisers" do
+      it "Cruiser has 2" do
         allow(Ship_Section).to receive(:new) { section }
         expect(Ship.cruiser.ship).to match_array(Array.new(Ship::CRUISER_SIZE) { section })
       end
-      it "Submarine" do
+      it "Submarine has 3" do
         allow(Ship_Section).to receive(:new) { section }
         expect(Ship.submarine.ship).to match_array(Array.new(Ship::SUBMARINE_SIZE) { section })
       end
-      it "Battleship" do
+      it "Battleship has 4" do
         allow(Ship_Section).to receive(:new) { section }
         expect(Ship.battleship.ship).to match_array(Array.new(Ship::BATTLESHIP_SIZE) { section })
       end
-      it "Aircraft Carrier" do
+      it "Aircraft Carrier has 5" do
         allow(Ship_Section).to receive(:new) { section }
         expect(Ship.aircraft_carrier.ship).to match_array(Array.new(Ship::AIRCRAFT_CARRIER_SIZE) { section })
       end
+    end
+  end
+  context "has different symbols to represent each ship" do
+    it "can read the ship symbol" do
+      expect(subject).to respond_to (:board_rep)
+    end
+    it "Destroyer = d" do
+      expect(Ship.destroyer.board_rep).to eq :d
+    end
+    it "Cruiser = c" do
+      expect(Ship.cruiser.board_rep).to eq :c
+    end
+    it "Submarine = s" do
+      expect(Ship.submarine.board_rep).to eq :s
+    end
+    it "Battleship = b" do
+      expect(Ship.battleship.board_rep).to eq :b
+    end
+    it "Aircraft Carrier = a" do
+      expect(Ship.aircraft_carrier.board_rep).to eq :a
     end
   end
 end

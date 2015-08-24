@@ -6,7 +6,7 @@ describe Board do
       expect(subject).to respond_to (:view_board)
     end
     it "has a board full of water when created" do
-      expect(subject.view_board).to match_array(Array.new(10) { Array.new(10) { "w" } } )
+      expect(subject.view_board).to match_array(Array.new(10) { Array.new(10) { :w } } )
     end
   end
 end

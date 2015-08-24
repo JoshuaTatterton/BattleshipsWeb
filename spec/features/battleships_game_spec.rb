@@ -44,11 +44,37 @@ describe "Features" do
         aircraft_carrier.ship.each { |s| expect(s).to be_an_instance_of(Ship_Section) }
       end
     end
+    context "Ships have a symbol to be represented as on the board" do
+      it "Destroyer" do 
+        expect(destroyer.board_rep).to eq :d
+      end
+      it "Cruiser" do 
+        expect(cruiser.board_rep).to eq :c
+      end
+      it "Submarine" do 
+        expect(submarine.board_rep).to eq :s
+      end
+      it "Battleship" do 
+        expect(battleship.board_rep).to eq :b
+      end
+      it "Aircraft Carrier" do 
+        expect(aircraft_carrier.board_rep).to eq :a
+      end
+    end
   end
 
   describe Board do
     it "creates a 10x10 board full of water" do
-      expect(board.view_board).to eq (Array.new(10) { Array.new(10) { "w" } })
+      expect(board.view_board).to eq (Array.new(10) { Array.new(10) { :w } })
+    end
+    it "can place ships on the board" do
+      expect { board.place_ship(destroyer,:A1, :hoizontal) }.not_to raise_error
+      expect(board.view_board[0,0]).to eq :d
+      expect { board.place_ship(cruiser,:A1, :hoizontal) }.to raise_error "Ship already at location"
+      expect { board.place_ship(submarine,:D4, :vertical) }.not_to raise_error
+      expect(board.view_board[0,3..5]).to eq :s
+      expect { board.place_ship(battleship,:A0, :hoizontal) }.to raise_error "Out of bounds"
+      expect { board.place_ship(aircraft_carrier,:J10, :hoizontal) }.to raise_error "Out of bounds"
     end
   end
 end

@@ -1,4 +1,5 @@
 require_relative "ship_section"
+
 class Ship
   DESTROYER_SIZE = 1
   CRUISER_SIZE = 2
@@ -7,30 +8,27 @@ class Ship
   AIRCRAFT_CARRIER_SIZE = 5
 
   def self.destroyer
-    new(DESTROYER_SIZE)
+    new(DESTROYER_SIZE,:d)
   end
-
   def self.cruiser
-    new(CRUISER_SIZE)
+    new(CRUISER_SIZE,:c)
   end
-  
   def self.submarine
-    new(SUBMARINE_SIZE)
+    new(SUBMARINE_SIZE,:s)
   end
-
   def self.battleship
-    new(BATTLESHIP_SIZE)
+    new(BATTLESHIP_SIZE,:b)
   end
-
   def self.aircraft_carrier
-    new(AIRCRAFT_CARRIER_SIZE)
+    new(AIRCRAFT_CARRIER_SIZE,:a)
   end
 
-  attr_reader :size, :ship
+  attr_reader :size, :ship, :board_rep
   
-  def initialize(size)
+  def initialize(size,sym)
     @size = size
     @ship = Array.new(size) { Ship_Section.new }
+    @board_rep = sym
   end
 
   
