@@ -68,13 +68,15 @@ describe "Features" do
       expect(board.view_board).to eq (Array.new(10) { Array.new(10) { :w } })
     end
     it "can place ships on the board" do
-      expect { board.place_ship(destroyer,:A1, :hoizontal) }.not_to raise_error
-      expect(board.view_board[0,0]).to eq :d
-      expect { board.place_ship(cruiser,:A1, :hoizontal) }.to raise_error "Ship already at location"
-      expect { board.place_ship(submarine,:D4, :vertical) }.not_to raise_error
-      expect(board.view_board[0,3..5]).to eq :s
-      expect { board.place_ship(battleship,:A0, :hoizontal) }.to raise_error "Out of bounds"
-      expect { board.place_ship(aircraft_carrier,:J10, :hoizontal) }.to raise_error "Out of bounds"
+      expect { board.place_ship(destroyer,:B1,:horizontal) }.not_to raise_error
+      expect(board.view_board[0][1]).to eq :d
+      expect { board.place_ship(cruiser,:A1,:horizontal) }.to raise_error "Ship already at location"
+      expect { board.place_ship(submarine,:D4,:horizontal) }.not_to raise_error
+      expect(board.view_board[3][3]).to eq :s
+      expect(board.view_board[3][4]).to eq :s
+      expect(board.view_board[3][5]).to eq :s
+      expect { board.place_ship(battleship,:A0, :horizontal) }.to raise_error "Out of bounds"
+      expect { board.place_ship(aircraft_carrier,:J10, :horizontal) }.to raise_error "Out of bounds"
     end
   end
 end
