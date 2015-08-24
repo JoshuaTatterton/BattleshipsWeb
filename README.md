@@ -2,7 +2,9 @@ BattleShips Web
 ------
 * This is an attempt to create an online way to play battleships with a game of battleships I have created in ruby. 
 * This "should" be playable online over 2 separate computers and against a computer player if I have time to try and create an AI. 
-* I will be using what I have learnt recently in Javascript and databases to make the system better.
+* I will be using what I have learnt recently in Javascript and databases to make the website better.
+
+To Save on typing I will assume you know the rules of battleships
 
 User Stories
 ----
@@ -42,6 +44,11 @@ Me and my opponent should alternate turns
 As a Player
 So I can strategize
 I would like to be able to see where I have previously fired 
+```
+```
+As a Player
+So I can strategize
+I would like to know when I have sunk an opponents ship
 ```
 ```
 As a Player
