@@ -77,4 +77,12 @@ describe Board do
       expect(subject.fire(:A1)).to eq :sunk
     end
   end
+  context "it knows if there is a winner" do
+      it "knows if there is a winner" do
+        subject.place_ship(destroyer,:J7,:horizontal)
+        expect(subject).to be_winner
+        subject.place_ship(carrier,:A1,:vertical)
+        expect(subject).not_to be_winner
+      end
+    end
 end

@@ -130,4 +130,48 @@ describe "Features" do
       end
     end
   end
+  describe Play do
+    let(:game) { Play.new }
+    context "when starting a new game" do
+      it "creates a board for player 1" do
+        expect(game.player1_board).to be_an_instance_of(Board)
+      end
+      it "creates a board for player 2" do
+        expect(game.player2_board).to be_an_instance_of(Board)
+      end
+    end
+    context "lets players play the game," do
+      it "players can place ships" do
+        game.player1_place(destroyer,:A1,:horizontal)
+        expect(game.player1_board.view_board[0][0]).to eq :d
+        game.player2_place(destroyer,:J10,:horizontal)
+        expect(game.player2_board.view_board[9][9]).to eq :d
+      end
+      xit "players can view their board nicely" do
+
+      end
+      xit "players can view where fired on opponents board" do
+
+      end
+      it "players can fire at opponents board" do
+        game.player1_place(destroyer,:A1,:horizontal)
+        game.player2_place(destroyer,:J10,:horizontal)
+        game.player1_fire(:A1)
+        expect(game.player2_board.view_board[0][0]).to eq :m
+        game.player1_fire(:J10)
+        expect(game.player2_board.view_board[9][9]).to eq :h
+        game.player2_fire(:J10)
+        expect(game.player1_board.view_board[9][9]).to eq :m
+        game.player2_fire(:A1)
+        expect(game.player1_board.view_board[0][0]).to eq :h
+      end
+      it "reports when there is a winner" do
+        game.player1_place(destroyer,:A1,:vertical)
+        expect(game.player2_fire(:A1)).to eq :player2
+        game.player2_place(cruiser,:A1,:horizontal)
+        game.player1_fire(:A1)
+        expect(game.player1_fire(:B1)).to eq :player1
+      end
+    end
+  end
 end

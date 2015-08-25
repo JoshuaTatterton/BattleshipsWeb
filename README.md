@@ -23,7 +23,7 @@ While Playing
 ```
 As a Player
 So I can play strategically
-I would like to place ships my different sized ships on the board
+I would like to place different sized ships on the board
 ```
 ```
 As a Player
