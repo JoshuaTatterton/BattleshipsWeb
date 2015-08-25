@@ -77,4 +77,45 @@ describe Ship do
       expect(Ship.aircraft_carrier.board_rep).to eq :a
     end
   end
+  context "it sets its location" do
+    it { is_expected.to respond_to(:setV).with(1).argument }
+    it { is_expected.to respond_to(:setH).with(1).argument }
+    it "tells the ship sections where they are" do 
+      section = spy :section
+      allow(Ship_Section).to receive(:new) { section }
+      ship = Ship.new(2,:c).setV(:A1)
+      expect(section).to have_received(:set).at_least(2).times
+      Ship.new(2,:c).setH(:A1)
+      expect(section).to have_received(:set).at_least(2).times
+    end
+  end
+  context "can be hit," do
+    it "hits a section" do
+      section = spy :section, location: :A1
+      allow(Ship_Section).to receive(:new) { section }
+      ship = Ship.new(1,:d)
+      ship.hit(:A1)
+      expect(section).to have_received(:hit)
+    end
+    it "doesn't hit if not at location" do
+      section = spy :section, location: :A1
+      allow(Ship_Section).to receive(:new) { section }
+      ship = Ship.new(1,:d)
+      ship.hit(:A2)
+      expect(section).not_to have_received(:hit)
+    end
+    it { is_expected.to respond_to(:sunk?) }
+    it "it returns not sunk when not sunk duuhh" do
+      section = double :section, hit?: false
+      allow(Ship_Section).to receive(:new) { section }
+      ship = Ship.new(3,:s)
+      expect(ship).not_to be_sunk
+    end
+    it "knows when it has been sunk" do
+      section = double :section, hit?: true
+      allow(Ship_Section).to receive(:new) { section }
+      ship = Ship.new(3,:s)
+      expect(ship).to be_sunk
+    end
+  end
 end

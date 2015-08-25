@@ -31,5 +31,37 @@ class Ship
     @board_rep = sym
   end
 
-  
+  def setV(coord)
+    @coord = coord
+    ship.each { |x| x.set(@coord); coord_increaseV }
+  end
+
+  def setH(coord)
+    @coord = coord
+    ship.each { |x| x.set(@coord); coord_increaseH }
+  end
+
+  def hit(coord)
+    ship.each { |x| x.hit if (x.location == coord) }
+  end
+
+  def sunk?
+    !hits.include?(false)
+  end
+
+  private
+
+  def coord_increaseV
+    num = @coord[1]
+    @coord = (@coord[0] + ((num.to_i) + 1).to_s).to_sym
+  end
+
+  def coord_increaseH
+    str = @coord[0]
+    @coord = ((str.ord+1).chr + @coord[1]).to_sym
+  end
+
+  def hits
+    return ship.map { |x| x.hit? }
+  end
 end

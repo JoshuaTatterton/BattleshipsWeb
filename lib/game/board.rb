@@ -1,16 +1,30 @@
 class Board
 
-  attr_reader :view_board
+  attr_reader :view_board, :ships
   
   def initialize
     @view_board = Array.new(10) { Array.new(10) { :w } }
+    @ships = {}
   end
 
   def place_ship(ship,coord,direction)
     direction == :horizontal ? ship_placerH(ship,coord) : ship_placerV(ship,coord)
+    ships[ship.board_rep] = ship
+  end
+
+  def fire(coord)
+    location = view_board[symN(coord[1])][symL(coord[0])]
+    fail "Already fired at location" if location == :m
+    view_board[symN(coord[1])][symL(coord[0])] = (location == :w ?  :m : :h)
+    view_board[symN(coord[1])][symL(coord[0])] == :m ? :miss : hit_checker(location,coord)
   end
 
   private
+
+  def hit_checker(board_value,coord)
+    ships[board_value].hit(coord)
+    ships[board_value].sunk? ? :sunk : :hit
+  end
 
   attr_writer :view_board
 
@@ -26,6 +40,7 @@ class Board
     location_checker(ship_spanH(ship,coord))
     i = 0
     ship.size.times { view_board[symN(coord[1])][symL(coord[0]) + i] = ship.board_rep; i+=1 }
+    ship.setH(coord)
   end
   def ship_spanH(ship,coord)
     i = 0
@@ -44,6 +59,7 @@ class Board
     location_checker(ship_spanV(ship,coord))
     i = 0
     ship.size.times { view_board[symN(coord[1]) + i][symL(coord[0])] = ship.board_rep; i+=1 }
+    ship.setV(coord)
   end
   def ship_spanV(ship,coord)
     i = 0

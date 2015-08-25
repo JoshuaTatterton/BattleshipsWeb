@@ -8,7 +8,7 @@ describe "Features" do
   let(:submarine) { Ship.submarine }
   let(:battleship) { Ship.battleship }
   let(:aircraft_carrier) { Ship.aircraft_carrier }
-
+  let(:section) { Ship_Section.new }
   describe Ship do
     context "can create ships using ship names" do
       it "Destroyer" do
@@ -77,6 +77,57 @@ describe "Features" do
       expect(board.view_board[3][5]).to eq :s
       expect { board.place_ship(battleship,:A0, :horizontal) }.to raise_error "Out of bounds"
       expect { board.place_ship(aircraft_carrier,:J10, :horizontal) }.to raise_error "Out of bounds"
+    end
+    it "ships know where they are after being placed on board" do
+      board.place_ship(battleship,:B2,:vertical)
+      expect(battleship.ship[0].location).to eq :B2
+      expect(battleship.ship[1].location).to eq :B3
+      expect(battleship.ship[2].location).to eq :B4
+      expect(battleship.ship[3].location).to eq :B5
+      board.place_ship(aircraft_carrier,:C2,:horizontal)
+      expect(aircraft_carrier.ship[0].location).to eq :C2
+      expect(aircraft_carrier.ship[1].location).to eq :D2
+      expect(aircraft_carrier.ship[2].location).to eq :E2
+      expect(aircraft_carrier.ship[3].location).to eq :F2
+      expect(aircraft_carrier.ship[4].location).to eq :G2
+    end
+    context "can fire at the board" do
+      before(:each) { board.place_ship(cruiser,:A1,:vertical) }
+      it "" do
+        expect { board.fire(:D4) }.not_to raise_error
+        expect(board.view_board[3][3]).to eq :m
+        expect { board.fire(:D4) }.to raise_error "Already fired at location"
+      end
+      it "misses" do
+        expect(board.fire(:A3)).to eq :miss
+        expect(board.view_board[2][0]).to eq :m
+      end
+      it "hits" do
+        expect(board.fire(:A1)).to eq :hit
+        expect(board.view_board[0][0]).to eq :h 
+        expect(cruiser.ship[0]).to be_hit
+      end
+      it "sinks" do
+        board.fire(:A1)
+        expect(board.fire(:A2)).to eq :sunk
+        expect(board.view_board[1][0]).to eq :h 
+        expect(cruiser).to be_sunk
+      end
+    end
+  end
+  describe Ship_Section do
+    context "knows if it has been hit or not" do
+      it "should initially be not hit" do
+        expect(section).not_to be_hit
+      end
+      it "should be hit after being hit" do
+        section.hit
+        expect(section).to be_hit
+      end
+      it "should store its location when set" do
+        section.set(:A1)
+        expect(section.location).to eq :A1
+      end
     end
   end
 end
