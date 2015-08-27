@@ -6,4 +6,6 @@ class Player
   property :name, String
   property :game_id, Integer
 
+
+
 end

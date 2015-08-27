@@ -24,14 +24,31 @@ class BattleshipsWeb < Sinatra::Base
     erb :"online/pvp"
   end
 
+  get "/online/pvp/p1/place" do
+    @p1 = get_name(session[:player_id])
+    erb :"online/pvp/p1/place"
+  end
+
   helpers do
     def startcreate_game(player_id)
-      # lastgame = Game.last_game
-      # if lastgame == nil || lastgame.player2_id != nil
-      Game.create(play: Play.new, player_turn: player_id, player1_id: player_id)
+      lastgame = Game.last_game
+      if lastgame == nil || lastgame.player2 != nil
+        play = Marshal::dump(Play.new)
+        game = Game.create(play: play, player_turn: player_id, player1: player_id)
+      else
+        lastgame.update(player2: player_id)
+        game = lastgame
+        @p2 = get_name(lastgame.player1)
+      end
+      set_game(player_id,game)
     end
     def get_name(player_id)
       Player.get(player_id).name
+    end
+    def set_game(player_id, game)
+      player = Player.get(player_id)
+      player.update(:game_id => game.id)
+      player.save
     end
   end
 

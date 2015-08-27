@@ -1,0 +1,12 @@
+<script type="text/javascript" src="./jquery.js"></script>
+<script type="text/javascript" src="./jq_battleships.js"></script>
+
+<h1><%= @p1 %> where do you want to place your ships</h1>
+<div><span id="ship">Aircraft Carrier(5):</span>
+  <input type="text" id="location">
+  <select name="direction" id="direction">
+        <option value = "horizontal">horizontal</option>
+        <option value = "vertical">vertical</option>
+  </select>
+<div>
+<button type="button" id="place">Place</button>
