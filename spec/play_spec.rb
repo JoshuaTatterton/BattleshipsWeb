@@ -39,6 +39,32 @@ describe Play do
       expect(spy_board).to have_received(:fire)
     end
   end
+  context "lets players view" do
+    context "their own boards" do
+      it "Player1" do
+        allow(Board).to receive(:new) { spy_board }
+        subject.player1_view_own
+        expect(spy_board).to have_received(:view_board)
+      end
+      it "Player2" do
+        allow(Board).to receive(:new) { spy_board }
+        subject.player2_view_own
+        expect(spy_board).to have_received(:view_board)
+      end
+    end
+    context "their opponents boards" do
+      it "Player1" do
+        allow(Board).to receive(:new) { spy_board }
+        subject.player1_view_opponent
+        expect(spy_board).to have_received(:view_board)
+      end
+      it "Player2" do
+        allow(Board).to receive(:new) { spy_board }
+        subject.player2_view_opponent
+        expect(spy_board).to have_received(:view_board)
+      end
+    end
+  end 
   context "knows when player has won" do
     it "Player 1" do
       allow(Board).to receive(:new) { spy_board }

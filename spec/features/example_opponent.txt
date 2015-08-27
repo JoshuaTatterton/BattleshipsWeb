@@ -1,0 +1,14 @@
+     A B C D E F G H I J     
+     – – – – – – – – – –     
+1  | h w w w w w w w w w |  1
+2  | w w w w w w w w w w |  2
+3  | w w w w w w w w w w |  3
+4  | w w w m w w w w w w |  4
+5  | w w w w w w w w w w |  5
+6  | w w w w w w w w w w |  6
+7  | w w w w w w w w w w |  7
+8  | w w w w w w w w w w |  8
+9  | w w w w w w w w w w |  9
+10 | w w w w w w w w w w | 10
+     – – – – – – – – – –     
+     A B C D E F G H I J     

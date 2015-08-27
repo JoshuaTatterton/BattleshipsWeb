@@ -147,11 +147,29 @@ describe "Features" do
         game.player2_place(destroyer,:J10,:horizontal)
         expect(game.player2_board.view_board[9][9]).to eq :d
       end
-      xit "players can view their board nicely" do
-
+      it "players can view their board nicely" do
+        game.player1_place(destroyer,:I1,:vertical)
+        game.player1_place(cruiser,:C3,:horizontal)
+        game.player1_place(submarine,:H6,:horizontal)
+        game.player1_place(battleship,:A9,:horizontal)
+        game.player1_place(aircraft_carrier,:A2,:vertical)
+        expect(game.player1_view_own).to eq example_own
+        game.player2_place(destroyer,:I1,:vertical)
+        game.player2_place(cruiser,:C3,:horizontal)
+        game.player2_place(submarine,:H6,:horizontal)
+        game.player2_place(battleship,:A9,:horizontal)
+        game.player2_place(aircraft_carrier,:A2,:vertical)
+        expect(game.player2_view_own).to eq example_own
       end
-      xit "players can view where fired on opponents board" do
-
+      it "players can view where fired on opponents board" do
+        game.player2_place(destroyer,:A1,:vertical)
+        game.player1_fire(:A1)
+        game.player1_fire(:D4)
+        expect(game.player1_view_opponent).to eq example_opponent
+        game.player1_place(destroyer,:A1,:vertical)
+        game.player2_fire(:A1)
+        game.player2_fire(:D4)
+        expect(game.player2_view_opponent).to eq example_opponent
       end
       it "players can fire at opponents board" do
         game.player1_place(destroyer,:A1,:horizontal)
@@ -167,11 +185,43 @@ describe "Features" do
       end
       it "reports when there is a winner" do
         game.player1_place(destroyer,:A1,:vertical)
-        expect(game.player2_fire(:A1)).to eq :player2
+        expect(game.player2_fire(:A1)).to eq :winner
         game.player2_place(cruiser,:A1,:horizontal)
         game.player1_fire(:A1)
-        expect(game.player1_fire(:B1)).to eq :player1
+        expect(game.player1_fire(:B1)).to eq :winner
       end
     end
   end
+  let(:example_own) { 
+"     A B C D E F G H I J     
+     – – – – – – – – – –     
+1  | w w w w w w w w d w |  1
+2  | a w w w w w w w w w |  2
+3  | a w c c w w w w w w |  3
+4  | a w w w w w w w w w |  4
+5  | a w w w w w w w w w |  5
+6  | a w w w w w w s s s |  6
+7  | w w w w w w w w w w |  7
+8  | w w w w w w w w w w |  8
+9  | b b b b w w w w w w |  9
+10 | w w w w w w w w w w | 10
+     – – – – – – – – – –     
+     A B C D E F G H I J     " 
+   }
+   let(:example_opponent) { 
+"     A B C D E F G H I J     
+     – – – – – – – – – –     
+1  | h w w w w w w w w w |  1
+2  | w w w w w w w w w w |  2
+3  | w w w w w w w w w w |  3
+4  | w w w m w w w w w w |  4
+5  | w w w w w w w w w w |  5
+6  | w w w w w w w w w w |  6
+7  | w w w w w w w w w w |  7
+8  | w w w w w w w w w w |  8
+9  | w w w w w w w w w w |  9
+10 | w w w w w w w w w w | 10
+     – – – – – – – – – –     
+     A B C D E F G H I J     "
+   }
 end
