@@ -26,15 +26,83 @@ class BattleshipsWeb < Sinatra::Base
 
   get "/online/pvp/p1/place" do
     @p1 = get_name(session[:player_id])
+    game = Game.last(:player1 => session[:player_id])
+    game.play
+    play = YAML::load(game.play)
+    @game = play
     erb :"online/pvp/p1/place"
+  end
+
+  get "/online/pvp/p1/:type/:location/:direction" do
+    game = Game.last(player1: session[:player_id])
+    play = YAML::load(game.play)
+    play.player1_place(Ship.send(params[:type]),params[:location].capitalize.to_sym,params[:direction].to_sym)
+    play = YAML::dump(play)
+    game.update(play: play)
+  end
+
+  get "/online/pvp/p1/board" do
+    game = Game.last(player1: session[:player_id])
+    play = YAML::load(game.play)
+    "#{play.player1_view_own}"
+  end
+
+  post "/online/pvp/p1/lobby" do
+    game = Game.last(player1: session[:player_id])
+    play = YAML::load(game.play)
+    play.player1_place(Ship.destroyer,params[:location].capitalize.to_sym,params[:direction].to_sym)
+    play = YAML::dump(play)
+    game.update(play: play)
+    redirect "online/pvp/p1/lobby"
+  end
+
+  get "/online/pvp/p1/lobby" do
+    erb :"online/pvp/p1/lobby"
+  end
+
+  get "/online/pvp/p2/place" do
+    @p2 = get_name(session[:player_id])
+    game = Game.last(:player2 => session[:player_id])
+    game.play
+    play = YAML::load(game.play)
+    @game = play
+    erb :"online/pvp/p2/place"
+  end
+
+  get "/online/pvp/p2/:type/:location/:direction" do
+    game = Game.last(player2: session[:player_id])
+    play = YAML::load(game.play)
+    play.player2_place(Ship.send(params[:type]),params[:location].capitalize.to_sym,params[:direction].to_sym)
+    play = YAML::dump(play)
+    game.update(play: play)
+  end
+
+  get "/online/pvp/p2/board" do
+    game = Game.last(player2: session[:player_id])
+    play = YAML::load(game.play)
+    "#{play.player2_view_own}"
+  end
+
+  post "/online/pvp/p2/play" do
+    game = Game.last(player2: session[:player_id])
+    play = YAML::load(game.play)
+    play.player1_place(Ship.destroyer,params[:location].capitalize.to_sym,params[:direction].to_sym)
+    play = YAML::dump(play)
+    game.update(play: play, player_turn: game.player1)
+    redirect "/online/pvp/p2/play"
+  end
+
+  get "/online/pvp/p2/play" do
+    @p1 = get_name((Game.last(:player2 => session[:player_id])).player1)
+    erb :"online/pvp/p2/play"
   end
 
   helpers do
     def startcreate_game(player_id)
       lastgame = Game.last_game
       if lastgame == nil || lastgame.player2 != nil
-        play = Marshal::dump(Play.new)
-        game = Game.create(play: play, player_turn: player_id, player1: player_id)
+        play = YAML::dump(Play.new)
+        game = Game.create(play: play, player1: player_id)
       else
         lastgame.update(player2: player_id)
         game = lastgame

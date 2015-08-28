@@ -3,7 +3,7 @@ class Game
   include DataMapper::Resource
 
   property :id, Serial
-  property :play, Text
+  property :play, String, :length => 10000
   property :player_turn, Integer
   property :player1, Integer
   property :player2, Integer

@@ -85,11 +85,66 @@ feature "BattleshipsWeb" do
         click_link "Place Ships"
         expect(page).to have_content "#{name} where do you want to place your ships"
         expect(page).to have_content "Aircraft Carrier(5):"
-        placeh "A1"
-        expect(page).to have_content "Battleship(4)"
+        placev "A2"
+        placeh "A9"
+        placeh "H6"
+        placeh "C3"
+        fill_in "location", with: "I1"
+        click_button "Place Final"
+        expect(page).to have_content "Please wait for player 2 to join and place ships (a start game button will appear when both players are ready)"
+      end
+      scenario "Player2" do
+        name1 = "Nami"
+        name2 = "Robin"
+        start_pvp_game(name1)
+        start_pvp_game(name2)
+        click_link "Place Ships"
+        expect(page).to have_content "#{name2} where do you want to place your ships"
+        expect(page).to have_content "Aircraft Carrier(5):"
+        placev "A2"
+        placeh "A9"
+        placeh "H6"
+        placeh "C3"
+        fill_in "location", with: "I1"
+        click_button "Place Final"
+        expect(page).to have_content "Waiting for #{name1} to make their move"
       end
     end
   end
+  context "playing a game" do
+    context "players can fire at opponents" do 
+      scenario "Player1" do
+        name1 = "Nami"
+        name2 = "Robin"
+        start_pvp_game(name1)
+        start_pvp_game(name2)
+        click_link "Place Ships"
+        placev "A2"
+        placeh "A9"
+        placeh "H6"
+        placeh "C3"
+        fill_in "location", with: "I1"
+        click_button "Place Final"
+        click_link "Start Game"
+        expect(page).to have_content ""
+      end
+    end
+  end
+  let(:eg_board) { "     A B C D E F G H I J     
+     – – – – – – – – – –     
+1  | w w w w w w w w d w |  1
+2  | a w w w w w w w w w |  2
+3  | a w c c w w w w w w |  3
+4  | a w w w w w w w w w |  4
+5  | a w w w w w w w w w |  5
+6  | a w w w w w w s s s |  6
+7  | w w w w w w w w w w |  7
+8  | w w w w w w w w w w |  8
+9  | b b b b w w w w w w |  9
+10 | w w w w w w w w w w | 10
+     – – – – – – – – – –     
+     A B C D E F G H I J     "
+   }
 end
 def start_pvp_game(name = "")
   visit "/"
