@@ -60,6 +60,10 @@ class BattleshipsWeb < Sinatra::Base
     erb :"online/pvp/p1/lobby"
   end
 
+  get "/online/pvp/p1/play" do
+    erb :"online/pvp/p1/play"
+  end
+
   get "/online/pvp/p2/place" do
     @p2 = get_name(session[:player_id])
     game = Game.last(:player2 => session[:player_id])
@@ -86,7 +90,7 @@ class BattleshipsWeb < Sinatra::Base
   post "/online/pvp/p2/play" do
     game = Game.last(player2: session[:player_id])
     play = YAML::load(game.play)
-    play.player1_place(Ship.destroyer,params[:location].capitalize.to_sym,params[:direction].to_sym)
+    play.player2_place(Ship.destroyer,params[:location].capitalize.to_sym,params[:direction].to_sym)
     play = YAML::dump(play)
     game.update(play: play, player_turn: game.player1)
     redirect "/online/pvp/p2/play"
@@ -95,6 +99,11 @@ class BattleshipsWeb < Sinatra::Base
   get "/online/pvp/p2/play" do
     @p1 = get_name((Game.last(:player2 => session[:player_id])).player1)
     erb :"online/pvp/p2/play"
+  end
+
+  get "/online/pvp/p1/turn" do
+    game = Game.last(player1: session[:player_id])
+    "#{game.player_turn}"
   end
 
   helpers do

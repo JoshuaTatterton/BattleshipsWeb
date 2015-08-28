@@ -107,7 +107,7 @@ feature "BattleshipsWeb" do
         placeh "C3"
         fill_in "location", with: "I1"
         click_button "Place Final"
-        expect(page).to have_content "Waiting for #{name1} to make their move"
+        expect(page).to have_content "Waiting for #{name1} to fire"
       end
     end
   end
@@ -117,7 +117,6 @@ feature "BattleshipsWeb" do
         name1 = "Nami"
         name2 = "Robin"
         start_pvp_game(name1)
-        start_pvp_game(name2)
         click_link "Place Ships"
         placev "A2"
         placeh "A9"
@@ -126,7 +125,10 @@ feature "BattleshipsWeb" do
         fill_in "location", with: "I1"
         click_button "Place Final"
         click_link "Start Game"
-        expect(page).to have_content ""
+        expect(page).to have_content "Please select where to fire"
+        fill_in "location", with: "A1"
+        click_button "Fire"
+        expect(page).to have_content "Waiting for to fire"
       end
     end
   end
