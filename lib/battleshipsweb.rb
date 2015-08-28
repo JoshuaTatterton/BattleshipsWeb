@@ -33,6 +33,15 @@ class BattleshipsWeb < Sinatra::Base
     erb :"online/pvp/p1/place"
   end
 
+  get "/online/pvp/p2/place" do
+    @p2 = get_name(session[:player_id])
+    game = Game.last(:player2 => session[:player_id])
+    game.play
+    play = YAML::load(game.play)
+    @game = play
+    erb :"online/pvp/p2/place"
+  end
+
   get "/online/pvp/p1/:type/:location/:direction" do
     game = Game.last(player1: session[:player_id])
     play = YAML::load(game.play)
@@ -41,10 +50,24 @@ class BattleshipsWeb < Sinatra::Base
     game.update(play: play)
   end
 
+  get "/online/pvp/p2/:type/:location/:direction" do
+    game = Game.last(player2: session[:player_id])
+    play = YAML::load(game.play)
+    play.player2_place(Ship.send(params[:type]),params[:location].capitalize.to_sym,params[:direction].to_sym)
+    play = YAML::dump(play)
+    game.update(play: play)
+  end
+
   get "/online/pvp/p1/board" do
     game = Game.last(player1: session[:player_id])
     play = YAML::load(game.play)
     "#{play.player1_view_own}"
+  end
+
+  get "/online/pvp/p2/board" do
+    game = Game.last(player2: session[:player_id])
+    play = YAML::load(game.play)
+    "#{play.player2_view_own}"
   end
 
   post "/online/pvp/p1/lobby" do
@@ -56,6 +79,15 @@ class BattleshipsWeb < Sinatra::Base
     redirect "online/pvp/p1/lobby"
   end
 
+  post "/online/pvp/p2/lobby" do
+    game = Game.last(player2: session[:player_id])
+    play = YAML::load(game.play)
+    play.player2_place(Ship.destroyer,params[:location].capitalize.to_sym,params[:direction].to_sym)
+    play = YAML::dump(play)
+    game.update(play: play, player_turn: game.player1)
+    redirect "/online/pvp/p2/play"
+  end
+
   get "/online/pvp/p1/lobby" do
     erb :"online/pvp/p1/lobby"
   end
@@ -65,8 +97,17 @@ class BattleshipsWeb < Sinatra::Base
     @p1 = get_name(game.player1)
     @p2 = get_name(game.player2)
     @id = session[:player_id]
-    @game = game.play
+    @game = YAML::load(game.play)
     erb :"online/pvp/p1/play"
+  end
+
+  get "/online/pvp/p2/play" do
+    game = Game.last(player2: session[:player_id])
+    @p1 = get_name(game.player1)
+    @p2 = get_name(game.player2)
+    @id = session[:player_id]
+    @game = YAML::load(game.play)
+    erb :"online/pvp/p2/play"
   end
 
   post "/online/pvp/p1/play" do
@@ -81,52 +122,6 @@ class BattleshipsWeb < Sinatra::Base
     erb :"online/pvp/p1/play"
   end
 
-  get "/online/pvp/p1/turn" do
-    game = Game.last(player1: session[:player_id])
-    "#{game.player_turn}"
-  end
-
-  get "/online/pvp/p2/place" do
-    @p2 = get_name(session[:player_id])
-    game = Game.last(:player2 => session[:player_id])
-    game.play
-    play = YAML::load(game.play)
-    @game = play
-    erb :"online/pvp/p2/place"
-  end
-
-  get "/online/pvp/p2/:type/:location/:direction" do
-    game = Game.last(player2: session[:player_id])
-    play = YAML::load(game.play)
-    play.player2_place(Ship.send(params[:type]),params[:location].capitalize.to_sym,params[:direction].to_sym)
-    play = YAML::dump(play)
-    game.update(play: play)
-  end
-
-  get "/online/pvp/p2/board" do
-    game = Game.last(player2: session[:player_id])
-    play = YAML::load(game.play)
-    "#{play.player2_view_own}"
-  end
-
-  post "/online/pvp/p2/lobby" do
-    game = Game.last(player2: session[:player_id])
-    play = YAML::load(game.play)
-    play.player2_place(Ship.destroyer,params[:location].capitalize.to_sym,params[:direction].to_sym)
-    play = YAML::dump(play)
-    game.update(play: play, player_turn: game.player1)
-    redirect "/online/pvp/p2/play"
-  end
-
-  get "/online/pvp/p2/play" do
-    game = Game.last(player2: session[:player_id])
-    @p1 = get_name(game.player1)
-    @p2 = get_name(game.player2)
-    @id = session[:player_id]
-    @game = game.play
-    erb :"online/pvp/p2/play"
-  end
-
   post "/online/pvp/p2/play" do
     game = Game.last(player2: session[:player_id])
     @game = YAML::load(game.play)
@@ -137,6 +132,11 @@ class BattleshipsWeb < Sinatra::Base
     play = YAML::dump(@game)
     game.update(play: play)
     erb :"online/pvp/p2/play"
+  end
+
+  get "/online/pvp/p1/turn" do
+    game = Game.last(player1: session[:player_id])
+    "#{game.player_turn}"
   end
 
   get "/online/pvp/p2/turn" do
