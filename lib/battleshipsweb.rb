@@ -118,7 +118,7 @@ class BattleshipsWeb < Sinatra::Base
     @p2 = get_name(game.player2)
     @id = session[:player_id]
     play = YAML::dump(@game)
-    game.update(play: play)
+    game.update(play: play, player_turn: game.player2)
     erb :"online/pvp/p1/play"
   end
 
@@ -130,7 +130,7 @@ class BattleshipsWeb < Sinatra::Base
     @p2 = get_name(game.player2)
     @id = session[:player_id]
     play = YAML::dump(@game)
-    game.update(play: play)
+    game.update(play: play, player_turn: game.player1)
     erb :"online/pvp/p2/play"
   end
 
