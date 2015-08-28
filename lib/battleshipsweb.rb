@@ -61,6 +61,11 @@ class BattleshipsWeb < Sinatra::Base
   end
 
   get "/online/pvp/p1/play" do
+    game = Game.last(player1: session[:player_id])
+    @p1 = get_name(game.player1)
+    @p2 = get_name(game.player2)
+    @id = session[:player_id]
+    @game = game.play
     erb :"online/pvp/p1/play"
   end
 
@@ -103,6 +108,11 @@ class BattleshipsWeb < Sinatra::Base
 
   get "/online/pvp/p1/turn" do
     game = Game.last(player1: session[:player_id])
+    "#{game.player_turn}"
+  end
+
+  get "/online/pvp/p2/turn" do
+    game = Game.last(player2: session[:player_id])
     "#{game.player_turn}"
   end
 
