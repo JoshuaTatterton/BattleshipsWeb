@@ -3,7 +3,7 @@ require 'dm-validations'
 
 env = ENV['RACK_ENV'] || 'development'
 
-DataMapper.setup(:default, "postgres://localhost/battleships_#{env}")
+DataMapper.setup(:default, ENV["DATABASE_URL"] || "postgres://localhost/battleships_#{env}")
 
 require './lib/models/game'
 require './lib/models/player'
