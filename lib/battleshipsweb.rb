@@ -89,6 +89,7 @@ class BattleshipsWeb < Sinatra::Base
   end
 
   get "/online/pvp/p1/lobby" do
+    @id = session[:player_id]
     erb :"online/pvp/p1/lobby"
   end
 
@@ -163,7 +164,6 @@ class BattleshipsWeb < Sinatra::Base
     def set_game(player_id, game)
       player = Player.get(player_id)
       player.update(:game_id => game.id)
-      player.save
     end
   end
 

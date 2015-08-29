@@ -19,12 +19,12 @@ class Play
 
   def player1_fire(coord)
     report = player2_board.fire(coord) 
-    report == :sunk ? player1_check : :hit
+    report == :sunk ? player1_check : report
   end
 
   def player2_fire(coord)
     report = player1_board.fire(coord)
-    report == :sunk ? player2_check : :hit
+    report == :sunk ? player2_check : report
   end
 
   def player1_view_own

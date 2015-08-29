@@ -115,6 +115,10 @@ feature "BattleshipsWeb" do
     context "players can fire at opponents" do 
       scenario "Player1" do
         name1 = "Nami"
+        name = double :name
+        allow(Player).to receive(:get) { name }
+        allow(name).to receive(:name) { name1 }
+        allow(name).to receive(:update)
         name2 = "Robin"
         start_pvp_game(name1)
         click_link "Place Ships"
@@ -125,10 +129,10 @@ feature "BattleshipsWeb" do
         fill_in "location", with: "I1"
         click_button "Place Final"
         click_link "Start Game"
-        expect(page).to have_content "Please select where to fire"
+        expect(page).to have_content blank_board
         fill_in "location", with: "A1"
         click_button "Fire"
-        expect(page).to have_content "Waiting for to fire"
+        expect(page).to have_content "miss"
       end
     end
   end
@@ -143,6 +147,21 @@ feature "BattleshipsWeb" do
 7  | w w w w w w w w w w |  7
 8  | w w w w w w w w w w |  8
 9  | b b b b w w w w w w |  9
+10 | w w w w w w w w w w | 10
+     – – – – – – – – – –     
+     A B C D E F G H I J     "
+   }
+   let(:blank_board) { "     A B C D E F G H I J     
+     – – – – – – – – – –     
+1  | w w w w w w w w w w |  1
+2  | w w w w w w w w w w |  2
+3  | w w w w w w w w w w |  3
+4  | w w w w w w w w w w |  4
+5  | w w w w w w w w w w |  5
+6  | w w w w w w w w w w |  6
+7  | w w w w w w w w w w |  7
+8  | w w w w w w w w w w |  8
+9  | w w w w w w w w w w |  9
 10 | w w w w w w w w w w | 10
      – – – – – – – – – –     
      A B C D E F G H I J     "

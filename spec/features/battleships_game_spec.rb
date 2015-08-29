@@ -173,12 +173,15 @@ describe "Features" do
       end
       it "players can fire at opponents board" do
         game.player1_place(destroyer,:A1,:horizontal)
-        game.player2_place(destroyer,:J10,:horizontal)
-        game.player1_fire(:A1)
+        game.player2_place(cruiser,:I10,:horizontal)
+        game.player2_place(cruiser,:A2,:horizontal)
+        expect(game.player1_fire(:A1)).to eq :miss
         expect(game.player2_board.view_board[0][0]).to eq :m
-        game.player1_fire(:J10)
+        expect(game.player1_fire(:J10)).to eq :hit
         expect(game.player2_board.view_board[9][9]).to eq :h
-        game.player2_fire(:J10)
+        expect(game.player1_fire(:I10)).to eq :hit
+        expect(game.player2_board.view_board[9][8]).to eq :h
+        expect(game.player2_fire(:J10)).to eq :miss
         expect(game.player1_board.view_board[9][9]).to eq :m
         game.player2_fire(:A1)
         expect(game.player1_board.view_board[0][0]).to eq :h
