@@ -115,11 +115,12 @@ class BattleshipsWeb < Sinatra::Base
     game = Game.last(player1: session[:player_id])
     @game = YAML::load(game.play)
     @result = @game.player1_fire(params[:location].capitalize.to_sym)
+    @location = params[:location].capitalize
     @p1 = get_name(game.player1)
     @p2 = get_name(game.player2)
     @id = session[:player_id]
     play = YAML::dump(@game)
-    game.update(play: play, player_turn: game.player2)
+    game.update(play: play, player_turn: game.player2, last_move: @location, last_status: @result.to_s)
     erb :"online/pvp/p1/play"
   end
 
@@ -127,11 +128,12 @@ class BattleshipsWeb < Sinatra::Base
     game = Game.last(player2: session[:player_id])
     @game = YAML::load(game.play)
     @result = @game.player2_fire(params[:location].capitalize.to_sym)
+    @location = params[:location].capitalize
     @p1 = get_name(game.player1)
     @p2 = get_name(game.player2)
     @id = session[:player_id]
     play = YAML::dump(@game)
-    game.update(play: play, player_turn: game.player1)
+    game.update(play: play, player_turn: game.player1, last_move: @location, last_status: @result.to_s)
     erb :"online/pvp/p2/play"
   end
 
@@ -143,6 +145,18 @@ class BattleshipsWeb < Sinatra::Base
   get "/online/pvp/p2/turn" do
     game = Game.last(player2: session[:player_id])
     "#{game.player_turn}"
+  end
+
+  get "/online/pvp/last/move" do
+    player = Player.get(session[:player_id])
+    game = Game.get(player.game_id)
+    "#{game.last_move}"
+  end
+
+  get "/online/pvp/last/status" do
+    player = Player.get(session[:player_id])
+    game = Game.get(player.game_id)
+    "#{game.last_status}"
   end
 
   helpers do

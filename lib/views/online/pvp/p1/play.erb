@@ -1,13 +1,20 @@
-<% if @result %>
-<%= @result %>
+<% if @result == :hit %>
+  <div>Well done <%= @p1 %>, <%= @location %> is a hit</div>
+<% elsif @result == :miss %>
+  <div>Unlucky <%= @location%> is a miss</div>
+<% elsif @result == :sunk %>
+  <div>Congratulations <%= @p1 %>, you sunk one of <%= @p2 %>'s ships</div>
 <% end %>
-<pre><div class="board"><%= @game.player1_view_opponent%></div></pre>
+<pre><div class="board"><%= @game.player1_view_opponent %></div></pre>
 <div id="waiting">Waiting for <%= @p2 %> to fire</div>
 <div id="tickTock"></div>
-<form action="/online/pvp/p1/play" method="post">
+<form class="slightspacing" action="/online/pvp/p1/play" method="post">
   <input type="text" name="location" class="hidden" id="location">
   <input type="hidden" value="<%= @id %>" id="hiddenID">
   <input type="submit" value="Fire" class="hidden" id="fire">
 </form>
 <pre class="board" id="ownBoard"></pre>
+<span id="playermessage" class="hidden"><%= @p2 %></span>
+<span id="message"></span>
+<div><a href="/"><button id="menu" class="hidden">Menu</button></a></div>
 <script type="text/javascript" src="/p1play.js"></script>

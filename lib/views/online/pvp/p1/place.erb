@@ -4,7 +4,7 @@
 <%= @game.player1_view_own %>
 </div></pre>
 
-<form action="/online/pvp/p1/lobby" method="post">
+<form class="slightspacing" action="/online/pvp/p1/lobby" method="post">
   <div><span id="ship">Aircraft Carrier(5):</span>
   <input type="text" name="location" id="location">
   <select name="direction" id="direction">
@@ -15,4 +15,4 @@
 <button type="button" id="place">Place</button>
 <input type="submit" value="Place Final" id="place_final" class="hidden">
 </form>
-<div>Please be careful when placing if you type it in wrong you don't get that ship</div>
+<div class="subtitle">Please be careful when placing if you type it in wrong you don't get that ship</div>
