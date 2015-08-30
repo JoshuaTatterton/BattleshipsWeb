@@ -1,7 +1,7 @@
 <% if @result %>
 <%= @result %>
 <% end %>
-<pre><%= @game.player2_view_opponent%></pre>
+<pre><div class="board"><%= @game.player2_view_opponent%></div></pre>
 <div id="waiting">Waiting for <%= @p1 %> to fire</div>
 <div id="tickTock"></div>
 <form action="/online/pvp/p2/play" method="post">
@@ -9,5 +9,5 @@
   <input type="hidden" value="<%= @id %>" id="hiddenID">
   <input type="submit" value="Fire" class="hidden" id="fire">
 </form>
-<pre id="ownBoard"></pre>
+<pre class="board" id="ownBoard"></pre>
 <script type="text/javascript" src="/p2play.js"></script>

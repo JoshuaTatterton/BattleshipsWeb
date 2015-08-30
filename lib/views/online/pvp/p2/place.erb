@@ -1,6 +1,6 @@
-<h1><%= @p2 %> where do you want to place your ships</h1>
+<div class="title"><%= @p2 %>, please place your ships</div>
 
-<pre><div id="board">
+<pre><div class="board" id="board">
 <%= @game.player2_view_own %>
 </div></pre>
 
@@ -15,4 +15,4 @@
 <button type="button" id="place2">Place</button>
 <input type="submit" value="Place Final" id="place_final" class="hidden">
 </form>
-<div>Please be careful when placing if you type it in wrong you don't get that ship</div>
+<div class="subtitle">Please be careful when placing if you type it in wrong you don't get that ship</div>

@@ -1,3 +1,29 @@
 .hidden {
   display: none;
 }
+body {
+  background-color: deepskyblue;
+  text-align: center;
+  display: block;
+  width: 1000px ;
+  margin: 0 auto;
+  padding-top: 17px;
+}
+.title {
+  font-size: 200%;
+  font-weight: bold;
+}
+.board {
+  font-size: 120%;
+  color: darkblue;
+}
+.subtitle {
+  font-size: 120%;
+  padding-top: 20px;
+}
+.spacing {
+  padding-top: 20px;
+}
+.slightspacing {
+  padding-top: 10px;
+}
