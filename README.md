@@ -1,7 +1,12 @@
 BattleShips Web
 ------
+
+The website can be found at the following address, it is still quite fragile so go easy on it.
+
+https://gentle-journey-9691.herokuapp.com
+
 * This is an attempt to create an online way to play battleships with a game of battleships I have created in ruby. 
-* This "should" be playable online over 2 separate computers and against a computer player if I have time to try and create an AI. 
+* This "should" be playable online over 2 separate computers and against a computer player if I have time to try and create an AI (did not have time for the AI this week may be a future project). 
 * I will be using what I have learnt recently in Javascript and databases to make the website better.
 
 To Save on typing I will assume you know the rules of battleships

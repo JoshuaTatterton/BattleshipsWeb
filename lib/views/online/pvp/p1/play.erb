@@ -1,9 +1,9 @@
 <% if @result == :hit %>
-  <div>Well done <%= @p1 %>, <%= @location %> is a hit</div>
+  <div>Good going <%= @p1 %>, <%= @location %> is a hit</div>
 <% elsif @result == :miss %>
   <div>Unlucky <%= @location%> is a miss</div>
 <% elsif @result == :sunk %>
-  <div>Congratulations <%= @p1 %>, you sunk one of <%= @p2 %>'s ships</div>
+  <div>Well done <%= @p1 %>, you sunk one of <%= @p2 %>'s ships</div>
 <% elsif @result == :winner %>
   <div>Congratulations <%= @p1 %>, you have sunk <%= @p2 %>'s final ship</div>
   <div class="slightspacing">You are a nautical combat expert</div>
