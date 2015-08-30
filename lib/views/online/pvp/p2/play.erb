@@ -1,9 +1,14 @@
 <% if @result == :hit %>
-  <div>Well done <%= @p2 %>, <%= @location %> is a hit</div>
+  <div>Good going <%= @p2 %>, <%= @location %> is a hit</div>
 <% elsif @result == :miss %>
   <div>Unlucky <%= @location%> is a miss</div>
 <% elsif @result == :sunk %>
-  <div>Congratulations <%= @p2 %>, you sunk one of <%= @p1 %>'s ships</div>
+  <div>Well done <%= @p2 %>, you sunk one of <%= @p1 %>'s ships</div>
+<% elsif @result == :winner %>
+  <div>Congratulations <%= @p1 %>, you have sunk <%= @p2 %>'s final ship</div>
+  <div class="slightspacing">You are a nautical combat expert</div>
+  <div class="slightspacing">Click below to return to the menu screen</div>
+  <div><a href="/"><button id="menu">Menu</button></a></div>
 <% end %>
 <pre><div class="board"><%= @game.player2_view_opponent %></div></pre>
 <div id="waiting">Waiting for <%= @p1 %> to fire</div>
