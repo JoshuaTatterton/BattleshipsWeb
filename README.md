@@ -1,18 +1,36 @@
 BattleShips Web
 ------
 
-The website can be found at the following address, it is still quite fragile so go easy on it.
+During my time at Makers we created a website where players could play battleships locally, using a battleships ruby gem for the game logic but I was not happy with it only being playable locally. During lab week I built an online PVP game of battleships. I built the logic for the game myself in ruby and created a more dynamic way for the games to play out using Javascript.
 
-https://gentle-journey-9691.herokuapp.com
+Please find the website on Heroku [here](https://gentle-journey-9691.herokuapp.com)
 
-* This is an attempt to create an online way to play battleships with a game of battleships I have created in ruby. 
-* This "should" be playable online over 2 separate computers and against a computer player if I have time to try and create an AI (did not have time for the AI this week may be a future project). 
-* I will be using what I have learnt recently in Javascript and databases to make the website better.
+#### Skills Used
+
+- I used ruby to create the logic for manipulating the game state.
+- The server was created using Sinatra.
+- I used Javascript to control when players can fire at the boards.
+- PostgrSQL and Datamapper was used to create and manipulate the database used.
+
+#### Skills Gained/ Improved
+
+- I had to learn how to use convert into YAML because I needed to store the game state in the database so two computers could play the same game.
+- I needed use interval functions in jQuery to make get requests to my own server to find changes in the game state, this was used to manage player's turns.
+
+#### Technologies Used
+
+- Production: Ruby, Sinatra, PostgreSQL, Datamapper, HTML, CSS, Javascript, JQuery
+- Testing: Rspec, Capybara, Database Cleaner
+
+#### How To Use
+
+- First clone and run bundle to install all relevant gems.
+- You will also need to create a database for test and development to be able to run tests and 
+
+#### User Stories
 
 To Save on typing I will assume you know the rules of battleships
 
-User Stories
-----
 ```
 As a Player
 So playing feels more personal
@@ -23,8 +41,8 @@ As a Player
 So I can play a game of battleships
 I would like to be able to start a game against a person online
 ```
-While Playing
----
+###### While Playing
+
 ```
 As a Player
 So I can play strategically
@@ -65,8 +83,7 @@ As a Player
 So the game does not go on forever
 I would like to be declared nautical combat master when I win
 ```
-Bonus
---
+####### Bonus (Not completed)
 ```
 As a Player
 So I can stop the robot advancement
