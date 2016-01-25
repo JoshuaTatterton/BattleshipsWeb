@@ -1,18 +1,20 @@
-<div class="title"><%= @p1 %>, please place your ships</div>
+<div class="bodybox">
+  <div class="title"><%= @p1 %>, please place your ships</div>
 
-<pre><div class="board" id="board">
-<%= @game.player1_view_own %>
-</div></pre>
+  <pre><div class="board" id="board">
+  <%= @game.player1_view_own %>
+  </div></pre>
 
-<form class="slightspacing" action="/online/pvp/p1/lobby" method="post">
-  <div><span id="ship">Aircraft Carrier(5):</span>
-  <input type="text" name="location" id="location">
-  <select name="direction" id="direction">
-        <option value = "horizontal">horizontal</option>
-        <option value = "vertical">vertical</option>
-  </select>
+  <form class="slightspacing" action="/online/pvp/p1/lobby" method="post">
+    <div><span id="ship">Aircraft Carrier(5):</span>
+    <input type="text" name="location" id="location">
+    <select name="direction" id="direction">
+          <option value = "horizontal">horizontal</option>
+          <option value = "vertical">vertical</option>
+    </select>
+  </div>
+  <button type="button" id="place">Place</button>
+  <input type="submit" value="Place Final" id="place_final" class="hidden">
+  </form>
+  <div class="subtitle">Please be careful when placing if you type it in wrong you don't get that ship</div>
 </div>
-<button type="button" id="place">Place</button>
-<input type="submit" value="Place Final" id="place_final" class="hidden">
-</form>
-<div class="subtitle">Please be careful when placing if you type it in wrong you don't get that ship</div>

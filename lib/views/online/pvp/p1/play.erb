@@ -1,25 +1,27 @@
-<% if @result == :hit %>
-  <div>Good going <%= @p1 %>, <%= @location %> is a hit</div>
-<% elsif @result == :miss %>
-  <div>Unlucky <%= @location%> is a miss</div>
-<% elsif @result == :sunk %>
-  <div>Well done <%= @p1 %>, you sunk one of <%= @p2 %>'s ships</div>
-<% elsif @result == :winner %>
-  <div>Congratulations <%= @p1 %>, you have sunk <%= @p2 %>'s final ship</div>
-  <div class="slightspacing">You are a nautical combat expert</div>
-  <div class="slightspacing">Click below to return to the menu screen</div>
-  <div><a href="/"><button id="menu">Menu</button></a></div>
-<% end %>
-<pre><div class="board"><%= @game.player1_view_opponent %></div></pre>
-<div id="waiting">Waiting for <%= @p2 %> to fire</div>
-<div id="tickTock"></div>
-<form class="slightspacing" action="/online/pvp/p1/play" method="post">
-  <input type="text" name="location" class="hidden" id="location">
-  <input type="hidden" value="<%= @id %>" id="hiddenID">
-  <input type="submit" value="Fire" class="hidden" id="fire">
-</form>
-<pre class="board" id="ownBoard"></pre>
-<span id="playermessage" class="hidden"><%= @p2 %></span>
-<span id="message"></span>
-<div><a href="/"><button id="menu" class="hidden">Menu</button></a></div>
-<script type="text/javascript" src="/p1play.js"></script>
+<div class="bodybox">
+  <% if @result == :hit %>
+    <div>Good going <%= @p1 %>, <%= @location %> is a hit</div>
+  <% elsif @result == :miss %>
+    <div>Unlucky <%= @location%> is a miss</div>
+  <% elsif @result == :sunk %>
+    <div>Well done <%= @p1 %>, you sunk one of <%= @p2 %>'s ships</div>
+  <% elsif @result == :winner %>
+    <div>Congratulations <%= @p1 %>, you have sunk <%= @p2 %>'s final ship</div>
+    <div class="slightspacing">You are a nautical combat expert</div>
+    <div class="slightspacing">Click below to return to the menu screen</div>
+    <div><a href="/"><button id="menu">Menu</button></a></div>
+  <% end %>
+  <pre><div class="board"><%= @game.player1_view_opponent %></div></pre>
+  <div id="waiting">Waiting for <%= @p2 %> to fire</div>
+  <div id="tickTock"></div>
+  <form class="slightspacing" action="/online/pvp/p1/play" method="post">
+    <input type="text" name="location" class="hidden" id="location">
+    <input type="hidden" value="<%= @id %>" id="hiddenID">
+    <input type="submit" value="Fire" class="hidden" id="fire">
+  </form>
+  <pre class="board" id="ownBoard"></pre>
+  <span id="playermessage" class="hidden"><%= @p2 %></span>
+  <span id="message"></span>
+  <div><a href="/"><button id="menu" class="hidden">Menu</button></a></div>
+  <script type="text/javascript" src="/p1play.js"></script>
+</div>

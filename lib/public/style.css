@@ -2,20 +2,38 @@
   display: none;
 }
 body {
-  background-color: deepskyblue;
+  background-image: url("battleshipboard.jpg");
+  background-size: 100%;
   text-align: center;
   display: block;
   width: 1000px ;
   margin: 0 auto;
   padding-top: 17px;
+  color: darkblue;
+  opacity: 1;
+}
+pre {
+  margin: 0;
+}
+.bodybox {
+  background-color: gray;
+  display: inline-block;
+  padding: 10px;
+  padding-bottom: 20px;
+  border-radius: 10px;
 }
 .title {
   font-size: 200%;
   font-weight: bold;
+  padding-bottom: 10px;
 }
 .board {
+  background-color: dodgerblue;
+  padding: 10px;
+  display: inline-block;
   font-size: 120%;
   color: darkblue;
+  border-radius: 10px;
 }
 .subtitle {
   font-size: 120%;
