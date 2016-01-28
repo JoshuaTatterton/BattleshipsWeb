@@ -2,9 +2,9 @@
   <% if @p2 %>
     <div class="title"><%= @p2 %> has been waiting for you <%= @name %></div>
     <div class="subtitle">Please place your ships to begin</div>
-    <a href="/online/pvp/p2/place"><button>Place Ships</button></a>
+    <a href="/online/pvp/p2/place"><button class="button">Place Ships</button></a>
   <% else %>
     <div class="title">Welcome <%= @name %>, please place your ships while we wait for a second player</div>
-    <a href="/online/pvp/p1/place"><button>Place Ships</button></a>
+    <a href="/online/pvp/p1/place"><button class="button">Place Ships</button></a>
   <% end %>
 </div>

@@ -1,20 +1,18 @@
 <div class="bodybox">
   <div class="title"><%= @p2 %>, please place your ships</div>
 
-  <div class="board" id="board"><pre>
-  <%= @game.player2_view_own %>
-  </pre></div>
+<pre><div class="board" id="board"><%= @game.player2_view_own %></div></pre>
 
   <form class="slightspacing" action="/online/pvp/p2/lobby" method="post">
     <div><span id="ship">Aircraft Carrier(5):</span>
     <input type="text" name="location" id="location">
     <select name="direction" id="direction">
-          <option value = "horizontal">horizontal</option>
-          <option value = "vertical">vertical</option>
+      <option value = "horizontal">horizontal</option>
+      <option value = "vertical">vertical</option>
     </select>
   </div>
-  <button type="button" id="place2">Place</button>
-  <input type="submit" value="Place Final" id="place_final" class="hidden">
+  <button class="button" type="button" id="place2">Place</button>
+  <input type="submit" value="Place Final" id="place_final" class="hidden button">
   </form>
   <div class="subtitle">Please be careful when placing if you type it in wrong you don't get that ship</div>
 </div>

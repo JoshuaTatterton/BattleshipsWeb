@@ -17,9 +17,9 @@
   <form class="slightspacing" action="/online/pvp/p1/play" method="post">
     <input type="text" name="location" class="hidden" id="location">
     <input type="hidden" value="<%= @id %>" id="hiddenID">
-    <input type="submit" value="Fire" class="hidden" id="fire">
+    <input type="submit" value="Fire" class="hidden button--fire" id="fire">
   </form>
-  <pre class="board" id="ownBoard"></pre>
+  <pre class="hidden" id="ownBoard"></pre>
   <span id="playermessage" class="hidden"><%= @p2 %></span>
   <span id="message"></span>
   <div><a href="/"><button id="menu" class="hidden">Menu</button></a></div>

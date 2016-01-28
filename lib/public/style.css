@@ -29,11 +29,11 @@ pre {
 }
 .board {
   background-color: dodgerblue;
-  padding: 10px;
   display: inline-block;
   font-size: 120%;
   color: darkblue;
   border-radius: 10px;
+  padding: 10px;
 }
 .subtitle {
   font-size: 120%;
@@ -44,4 +44,32 @@ pre {
 }
 .slightspacing {
   padding-top: 10px;
+}
+.button--fire {
+  color: white;
+  background-color: #ff3300;
+  border-style: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px;
+}
+.button--fire:hover {
+  background-color: #e6b800;
+}
+.button--fire:active {
+  background-color: #ff8000;
+}
+.button {
+  color: white;
+  background-color: darkblue;
+  border-style: none;
+  border-radius: 5px;
+  cursor: pointer;
+  padding: 5px;
+}
+.button:hover {
+  background-color: dodgerblue;
+}
+.button:active {
+  background-color: #0065cc;
 }
